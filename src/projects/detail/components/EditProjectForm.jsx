@@ -4,9 +4,7 @@ import Modal from 'react-modal'
 import _ from 'lodash'
 import update from 'react-addons-update'
 import FeaturePicker from './FeatureSelector/FeaturePicker'
-import FormsyComponent from '../../../components/Formsy'
-const { Formsy } = FormsyComponent
-import Icons from '../../../components/Icons'
+import { Formsy, Icons } from 'appirio-tech-react-components'
 
 import SpecSection from './SpecSection'
 
@@ -156,7 +154,7 @@ class EditProjectForm extends Component {
             isEdittable={isEdittable} onSave={ this.saveFeatures }
           />
           <div onClick={ this.hideFeaturesDialog } className="feature-selection-dialog-close">
-            Save and close <Icons.XMarkIcon />
+            Save and close <Icons.XMarkIcon />  
           </div>
         </Modal>
       </div>

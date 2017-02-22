@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import React, { Component, PropTypes } from 'react'
-import Tabs from '../../../components/Tabs/Tabs'
-import Tab from '../../../components/Tabs/Tab'
+import { Tabs, Tab } from 'appirio-tech-react-components'
 import { ROLE_TOPCODER_USER, ROLE_CONNECT_COPILOT, ROLE_CONNECT_MANAGER, ROLE_ADMINISTRATOR } from '../../../config/constants'
 import AppProjectForm from './AppProjectForm'
 import GenericProjectForm from './GenericProjectForm'

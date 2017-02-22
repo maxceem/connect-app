@@ -8,7 +8,7 @@
   .container {
     width: auto;
     padding: 0;
-    margin: 0 20px 20px;
+    margin: 0 20px 20px 20px;
     box-shadow: 0 1px 3px 0 #c3c3c8;
   }
 }
@@ -80,7 +80,6 @@
   }
 
   .flex-row {
-    display: box;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -200,6 +199,7 @@
     font-size: $tc-label-lg;
     color: $tc-gray-90;
     line-height: $base-unit * 4;
+    display: block;
     white-space: nowrap;
     padding-right: 20px;
     overflow: hidden;
@@ -416,7 +416,7 @@
       display: block;
       position: absolute;
       top: 2px;
-      right: 0;
+        right: 0;
     }
   }
 
@@ -472,13 +472,17 @@
     height: 30px;
     margin: 20px 20px 0 0;
     float: right;
+    display: flex;
+    ul {
+      display: flex;
+    }
 
     ul,
     li,
     .btn-prev,
     .btn-next {
       text-align: center;
-      float: left;
+      // float: left;
     }
 
     li {
@@ -546,8 +550,29 @@
             line-height: $base-unit * 4;
             text-align: center;
             height: 30px;
-            padding: 2px 0 0;
+            padding: 2px 0 0 0;
             margin: 0;
+          }
+        }
+      }
+
+      &.go-to-page-pill {
+        .tooltip-target {
+          min-width: 27px;
+          height: 28px;
+        }
+
+        .go-to-page-tooltip {
+          display: flex;
+          align-items: center;
+          @include tc-label-md;
+          line-height: $base-unit * 6;
+
+          input[type="number"] {
+            width: 50px;
+            height: $base-unit * 6;
+            margin-bottom: 0px;
+            margin-left: $base-unit * 2;
           }
         }
       }

@@ -54,7 +54,7 @@ class FeedView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.init(nextProps)
+    this.init(nextProps, this.props)
   }
 
   componentWillUnmount() {
@@ -78,7 +78,7 @@ class FeedView extends React.Component {
     return hasThread || hasComment
   }
 
-  mapFeed(feed, showAll = false) {
+  mapFeed(feed, showAll = false, resetNewComment = false) {
     const { allMembers } = this.props
     const item = _.pick(feed, ['id', 'date', 'read', 'tag', 'title', 'totalPosts', 'userId', 'reference', 'referenceId', 'postIds', 'isAddingComment', 'isLoadingComments', 'error'])
     if (isSystemUser(item.userId)) {
@@ -103,29 +103,48 @@ class FeedView extends React.Component {
         author: isSystemUser(p.userId) ? SYSTEM_USER : allMembers[p.userId]
       }
     }
+    const validPost = (post) => {
+      return post.type === 'post' && (post.body && post.body.trim().length || !isSystemUser(post.userId))
+    }
     if (showAll) {
       // if we are showing all comments, just iterate through the entire array
       _.forEach(_.slice(feed.posts, 1), p => {
-        p.type === 'post' ? item.comments.push(_toComment(p)) : item.totalComments--
+        validPost(p) ? item.comments.push(_toComment(p)) : item.totalComments--
       })
     } else {
       // otherwise iterate from right and add to the beginning of the array
       _.forEachRight(_.slice(feed.posts, 1), (p) => {
-        p.type === 'post' ? item.comments.unshift(_toComment(p)) : item.totalComments--
+        validPost(p) ? item.comments.unshift(_toComment(p)) : item.totalComments--
         if (!feed.showAll && item.comments.length === THREAD_MESSAGES_PAGE_SIZE)
           return false
       })
     }
     item.newComment = ''
+    if (!resetNewComment) {
+      const feedFromState = _.find(this.state.feeds, f => feed.id === f.id)
+      item.newComment = feedFromState ? feedFromState.newComment : ''
+    }
     item.hasMoreComments = item.comments.length !== item.totalComments
     return item
   }
 
-  init(props) {
+  init(props, prevProps) {
     const { feeds } = props
+    let resetNewPost = false
+    if (prevProps) {
+      resetNewPost = prevProps.isCreatingFeed && !props.isCreatingFeed && !props.error
+    }
     this.setState({
+      newPost: resetNewPost ? {} : this.state.newPost,
       feeds: feeds.map((feed) => {
-        return this.mapFeed(feed, this.state.showAll.indexOf(feed.id) > -1)
+        // finds the same feed from previous props, if exists
+        let prevFeed
+        if (prevProps && prevProps.feeds) {
+          prevFeed = _.find(prevProps.feeds, f => feed.id === f.id)
+        }
+        // reset new comment if we were adding comment and there is no error in doing so
+        const resetNewComment = prevFeed && prevFeed.isAddingComment && !feed.isAddingComment && !feed.error
+        return this.mapFeed(feed, this.state.showAll.indexOf(feed.id) > -1, resetNewComment)
       }).filter(item => item)
     })
   }

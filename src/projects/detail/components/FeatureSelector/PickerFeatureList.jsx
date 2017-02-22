@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import Icons from '../../../../components/Icons'
+import { Icons } from 'appirio-tech-react-components'
 import classNames from 'classnames'
 import _ from 'lodash'
 require('./PickerFeatureList.scss')

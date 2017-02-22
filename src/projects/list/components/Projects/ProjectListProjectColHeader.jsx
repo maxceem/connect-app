@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
-import Dropdown from '../../../../components/Dropdown/Dropdown'
-import DropdownItem from '../../../../components/Dropdown/DropdownItem'
+import { Dropdown, DropdownItem } from 'appirio-tech-react-components'
 
 const options = [
   { val: 'createdAt desc', label: 'Latest first' },

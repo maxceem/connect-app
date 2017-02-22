@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { clearLoadedProject } from '../../actions/project'
 import DevicesComponent from './Devices'
-import FormsyComponent from '../../../components/Formsy'
-const { Formsy } = FormsyComponent
-import TCFormFields from '../../../components/TCFormFields'
+import { Formsy, TCFormFields } from 'appirio-tech-react-components'
 import _ from 'lodash'
 import {PROJECT_NAME_MAX_LENGTH} from '../../../config/constants'
 

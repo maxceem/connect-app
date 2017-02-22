@@ -4,7 +4,7 @@ import cn from 'classnames'
 import ActionCard from '../ActionCard/ActionCard'
 import Panel from '../Panel/Panel'
 import FeedComments from './FeedComments'
-import Avatar from '../Avatar/Avatar'
+import { Avatar } from 'appirio-tech-react-components'
 
 const Feed = (props) => {
   const {
@@ -36,8 +36,8 @@ const Feed = (props) => {
           <div className="card-body draftjs-post" dangerouslySetInnerHTML={{__html: html}} />
         </div>
       </Panel.Body>
-      {allowComments &&
       <FeedComments
+        allowComments={ allowComments }
         totalComments={totalComments}
         hasMoreComments={hasMoreComments}
         onLoadMoreComments={onLoadMoreComments}
@@ -49,7 +49,7 @@ const Feed = (props) => {
         avatarUrl={currentUser.photoURL}
         comments={comments}
         isAddingComment={ isAddingComment }
-      />}
+      />
       {children}
     </ActionCard>
   )

@@ -147,6 +147,23 @@ export const THREAD_MESSAGES_PAGE_SIZE = 3
  * Project status
  */
 export const PROJECT_STATUS_DRAFT = 'draft'
+export const PROJECT_STATUS_IN_REVIEW = 'in_review'
+export const PROJECT_STATUS_REVIEWED = 'reviewed'
+export const PROJECT_STATUS_ACTIVE = 'active'
+export const PROJECT_STATUS_COMPLETED = 'completed'
+export const PROJECT_STATUS_CANCELLED = 'cancelled'
+export const PROJECT_STATUS_PAUSED = 'paused'
+
+export const PROJECT_STATUS = [
+  {color: 'gray', name: 'Draft', value: PROJECT_STATUS_DRAFT },
+  {color: 'gray', name: 'In Review', value: PROJECT_STATUS_IN_REVIEW },
+  {color: 'gray', name: 'Reviewed', value: PROJECT_STATUS_REVIEWED },
+  {color: 'green', name: 'Active', value: PROJECT_STATUS_ACTIVE },
+  {color: 'black', name: 'Completed', value: PROJECT_STATUS_COMPLETED },
+  {color: 'black', name: 'Cancelled', value: PROJECT_STATUS_CANCELLED },
+  {color: 'red', name: 'Paused', value: PROJECT_STATUS_PAUSED }
+]
+
 
 /*
  * Project member role
@@ -174,33 +191,21 @@ export const FILE_PICKER_API_KEY = process.env.FILE_PICKER_API_KEY || 'AzFINuQoq
 export const FILE_PICKER_SUBMISSION_CONTAINER_NAME = process.env.FILE_PICKER_SUBMISSION_CONTAINER_NAME || 'submission-staging-dev'
 export const PROJECT_ATTACHMENTS_FOLDER = process.env.PROJECT_ATTACHMENTS_FOLDER || 'PROJECT_ATTACHMENTS'
 
+export const SEGMENT_KEY = process.env.CONNECT_SEGMENT_KEY
 /*
  * URLs
  */
 export const DOMAIN = process.env.domain || 'topcoder.com'
 export const CONNECT_DOMAIN = `connect.${DOMAIN}`
 export const ACCOUNTS_APP_CONNECTOR_URL = process.env.ACCOUNTS_APP_CONNECTOR_URL
-export const ACCOUNTS_APP_LOGIN_URL = `https://accounts.${DOMAIN}/#/connect`
-export const ACCOUNTS_APP_REGISTER_URL = `https://accounts.${DOMAIN}/#/connect/registration`
+export const ACCOUNTS_APP_LOGIN_URL = `https://accounts.${DOMAIN}/#!/connect`
+export const ACCOUNTS_APP_REGISTER_URL = `https://accounts.${DOMAIN}/#!/connect/registration`
 
 export const TC_API_URL = `https://api.${DOMAIN}`
 export const DIRECT_PROJECT_URL = `https://www.${DOMAIN}/direct/projectOverview?formData.projectId=`
 export const SALESFORCE_PROJECT_LEAD_LINK = process.env.SALESFORCE_PROJECT_LEAD_LINK
 
 export const PROJECT_NAME_MAX_LENGTH = 255
-
-export const PROJECT_STATUS_COMPLETED = 'completed'
-export const PROJECT_STATUS_CANCELLED = 'cancelled'
-
-export const PROJECT_STATUS = [
-  {color: 'gray', name: 'Draft', value: 'draft'},
-  {color: 'gray', name: 'In Review', value: 'in_review'},
-  {color: 'gray', name: 'Reviewed', value: 'reviewed'},
-  {color: 'green', name: 'Active', value: 'active'},
-  {color: 'black', name: 'Completed', value: PROJECT_STATUS_COMPLETED },
-  {color: 'black', name: 'Cancelled', value: PROJECT_STATUS_CANCELLED },
-  {color: 'red', name: 'Paused', value: 'paused'}
-]
 
 export const PROJECT_FEED_TYPE_PRIMARY  = 'PRIMARY'
 export const PROJECT_FEED_TYPE_MESSAGES = 'MESSAGES'
@@ -214,4 +219,5 @@ export const PROJECT_MAX_COLORS = 5
 
 export const AUTOCOMPLETE_TRIGGER_LENGTH = 3
 
-export const HEAP_ANALYTICS_APP_ID = process.env.HEAP_ANALYTICS_APP_ID || '4153837120'
+// Toggle this flag to enable/disable maintenance mode
+export const MAINTENANCE_MODE = false

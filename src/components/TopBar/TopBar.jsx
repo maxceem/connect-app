@@ -4,11 +4,10 @@ import React, {PropTypes, Component} from 'react'
 import { Link } from 'react-router'
 import cn from 'classnames'
 import _ from 'lodash'
-import UserDropdown from '../UserDropdownMenu/UserDropdownMenu'
-import Icons from '../Icons'
+import { UserDropdown, Icons } from 'appirio-tech-react-components'
 
 const { ConnectLogo } = Icons
-import SearchBar from '../SearchBar/SearchBar'
+import { SearchBar } from 'appirio-tech-react-components'
 import Filters from './Filters'
 import ProjectToolBar from './ProjectToolBar'
 
@@ -53,17 +52,23 @@ class TopBar extends Component {
       userHandle, userImage, userName, domain, criteria, onNewProjectIntent, applyFilters, isProjectDetails, project,
       isPowerUser, loginUrl, registerUrl, isFilterVisible
     } = this.props
-    const homePageUrl = window.location.protocol + '//' + window.location.hostname
-    const logoutLink = 'https://accounts.' + domain + '/#/logout?retUrl=' + homePageUrl
+    const homePageUrl = `${window.location.protocol}//${window.location.host}/`
+    const logoutLink = `https://accounts.${domain}/#!/logout?retUrl=${homePageUrl}`
     const isLoggedIn = !!userHandle
     const logoTargetUrl = isLoggedIn ? '/projects' : '/'
+
+    const logoutClick = (evt) => {
+      evt.preventDefault()
+      window.analytics && window.analytics.reset()
+      window.location = logoutLink
+    }
 
     const userMenuItems = [
       [
         { label: 'Help', link: 'https://help.topcoder.com/hc/en-us', absolute: true, id: 0 }
       ],
       [
-        { label: 'Log out', link: logoutLink, absolute: true, id: 0 }
+        { label: 'Log out', onClick: logoutClick, absolute: true, id: 0 }
       ]
     ]
     const logo = (

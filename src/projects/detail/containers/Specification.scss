@@ -5,7 +5,6 @@ $gray-color: $tc-gray-50;
 $title-color: $tc-gray-80;
 
 @mixin flexBox {
-  display: box;
   display: flex;
   flex-direction: row;
   width: auto;
@@ -109,7 +108,7 @@ $title-color: $tc-gray-80;
   .bottom-border-titles {
     border-bottom: 1px solid $tc-gray-30;
     padding-bottom: $base-unit;
-    margin: 30px 0 20px;
+    margin: 30px 0 20px 0;
     position: relative;
 
     .title {
@@ -173,7 +172,7 @@ $title-color: $tc-gray-80;
       }
 
       .right-area-item {
-        padding: 50px 0 70px;
+        padding: 50px 0 70px 0;
         margin-bottom: 20px;
         border-radius: 4px;
         background-color: #fff;
@@ -710,6 +709,7 @@ $title-color: $tc-gray-80;
           @include roboto-medium;
 
           font-size: 15px;
+          color: #262628;
           line-height: 18px;
           padding: 10px 0;
 

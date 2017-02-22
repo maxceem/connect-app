@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import Icons from '../../components/Icons'
+import { Icons } from 'appirio-tech-react-components'
 
 const isFileRequired = (project, subSections) => {
   const subSection = _.find(subSections, (s) => s.type === 'questions')

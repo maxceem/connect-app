@@ -2,10 +2,6 @@ import React, {PropTypes} from 'react'
 import {Link} from 'react-router'
 import ReactDOM from 'react-dom'
 
-import IconDashboard from 'icons/dashboard.svg'
-import IconRulerPencil from 'icons/ruler-pencil.svg'
-// import IconHammer from 'icons/hammer.svg'
-import IconChat from 'icons/chat.svg'
 
 function isEllipsisActive(el) {
   return (el.offsetWidth < el.scrollWidth)
@@ -76,13 +72,13 @@ class ProjectToolBar extends React.Component {
           <div className="bar-column">
             {project && <nav className="nav">
               <ul>
-                <li><Link {...getLinkProps(`/projects/${project.id}`)}><IconDashboard />Dashboard</Link></li>
-                <li><Link {...getLinkProps(`/projects/${project.id}/specification`)}><IconRulerPencil />Specification</Link></li>
+                <li><Link {...getLinkProps(`/projects/${project.id}`)}><i className="icon-dashboard"/>Dashboard</Link></li>
+                <li><Link {...getLinkProps(`/projects/${project.id}/specification`)}><i className="icon-specification"/>Specification</Link></li>
                 {/*
                   TODO: Enable again when challenges link is needed.
-                  isPowerUser && <li><Link {...getLinkProps(`/projects/${project.id}/challenges`)}><IconHammer />Challenges</Link></li>
+                  isPowerUser && <li><Link {...getLinkProps(`/projects/${project.id}/challenges`)}><i className="icon-challenges"/>Challenges</Link></li>
                 */}
-                <li><Link {...getLinkProps(`/projects/${project.id}/discussions`)}><IconChat />Discussions</Link></li>
+                <li><Link {...getLinkProps(`/projects/${project.id}/discussions`)}><i className="icon-messages"/>Discussions</Link></li>
               </ul>
             </nav>}
             {avatar}

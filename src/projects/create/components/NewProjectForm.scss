@@ -42,7 +42,7 @@
       color: $tc-gray-60;
       font-size: $tc-heading-lg;
       text-align: center;
-      margin: 0 0 50px;
+      margin: 0 0 50px 0;
 
       &.project-info__title--device {
         margin-bottom: 30px;
@@ -167,6 +167,7 @@
             font-style: italic;
             color: $tc-gray-40;
             font-size: 12px;
+            line-height: 20px;
             top: 50%;
             margin: -15px 0 0 -10px;
             text-align: center;
@@ -204,7 +205,7 @@
             span.icon {
               display: block;
               height: 50px;
-              margin: 30px auto 20px;
+              margin: 30px auto 20px auto;
             }
 
             span.title {
@@ -341,6 +342,7 @@
 
         @include roboto;
 
+        color: $tc-gray-70;
         font-size: 13px;
         line-height: 20px;
         font-style: italic;
@@ -442,7 +444,7 @@
     .generic-project-form {
       width: 100%;
       max-width: 600px;
-      margin: 50px auto 0;
+      margin: 50px auto 0 auto;
 
       .row {
         margin-bottom: 20px;
@@ -605,7 +607,6 @@ $track-color: $tc-gray-neutral-dark;
       background-color: $tc-gray-neutral-dark;
     }
 
-    /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
     &::ms-tooltip {
       display: block;
       padding: 30px;

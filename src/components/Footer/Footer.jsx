@@ -1,5 +1,5 @@
 import React from 'react'
-import MenuBar from '../MenuBar/MenuBar'
+import { MenuBar } from 'appirio-tech-react-components'
 import moment from 'moment'
 
 require('./Footer.scss')

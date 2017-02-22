@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, {PropTypes} from 'react'
 import filesize from 'filesize'
-import Icons from '../Icons'
+import { Icons } from 'appirio-tech-react-components'
 
 const { TrashIcon, CloseIcon, EditIcon, SaveIcon } = Icons
 
