@@ -70,23 +70,65 @@ const ProjectsView = props => {
         )
       }
     }, {
+      id: 'type',
+      headerLabel: 'Type',
+      classes: 'width9 item-id',
+      sortable: true,
+      renderText: item => {
+        const projectType = _.get(findCategory(item.type), 'name', '')
+        const projectTypeClass = projectTypeClassMap[item.type]
+        return (
+          <div className="spacing">
+            <span className={ projectTypeClass }>{ projectType }</span>
+          </div>
+        )
+      }
+    }, {
       id: 'projects',
       headerLabel: <ProjectListProjectColHeader currentSortField={currentSortField} sortHandler={sortHandler}/>,
       classes: 'width45 item-projects',
       sortable: false,
       renderText: item => {
         const url = `/projects/${item.id}`
-        const code = _.get(item, 'details.utm.code', '')
-        const projectTypeClass = projectTypeClassMap[item.type]
-        const projectType = _.get(findCategory(item.type), 'name', '')
         return (
           <div className="spacing">
             <Link to={url} className="link-title">{item.name}</Link>
             <div className="project-metadata">
-              <span className={ projectTypeClass }>{ projectType }</span>
-              { code && <span className="item-ref-code txt-gray-md">Ref: {code}</span> }
-              <span className="txt-time">{moment(item.createdAt).format('DD MMM YYYY')}</span>
+              
+              <span className="txt-time">{item.description}</span>
+
             </div>
+          </div>
+        )
+      }
+    }, {
+      id: 'RefCode',
+      headerLabel: 'Ref Code',
+      sortable: false,
+      classes: 'column-ref-code width9',
+      renderText: item => {
+        const classes = classNames('txt-normal', {
+          'txt-italic': false // TODO when should we use this
+        })
+        const code = _.get(item, 'details.utm.code', '')
+        return (
+          <div className="project-metadata">
+            { code && <span className="item-ref-code txt-gray-md">{code}</span> }
+          </div>
+        )
+      }
+    }, {
+      id: 'updatedAt',
+      headerLabel: 'Created',
+      sortable: true,
+      classes: 'item-status-date width9',
+      renderText: item => {
+        const classes = classNames('txt-normal', {
+          'txt-italic': false // TODO when should we use this
+        })
+        return (
+          <div className="spacing">
+            <span className={classes}>{moment(item.createdAt).format('MMM D')}</span>
           </div>
         )
       }
@@ -101,21 +143,6 @@ const ProjectsView = props => {
         return (
           <div className="spacing">
             <span className={classes}>{s.name}</span>
-          </div>
-        )
-      }
-    }, {
-      id: 'updatedAt',
-      headerLabel: 'Last Updated',
-      sortable: true,
-      classes: 'item-status-date width9',
-      renderText: item => {
-        const classes = classNames('txt-normal', {
-          'txt-italic': false // TODO when should we use this
-        })
-        return (
-          <div className="spacing">
-            <span className={classes}>{moment(item.updatedAt).format('MMM D')}</span>
           </div>
         )
       }
@@ -150,41 +177,42 @@ const ProjectsView = props => {
           </div>
         )
       }
-    }, {
-      id: 'price',
-      headerLabel: 'Price',
-      sortable: false,
-      classes: 'item-price width7',
-      renderText: item => {
-        let desc = ''
-        let price = null
-        switch (item.status) {
-        case 'active':
-          desc = 'Pending'
-          break
-        case 'in_review':
-          price = item.estimatedPrice || null
-          desc = 'Estimated'
-          break
-        case 'reviewed':
-          price = item.estimatedPrice || null
-          desc = 'Quoted'
-          break
-        case 'completed':
-          desc = 'Paid'
-          price = item.actualPrice || null
-          break
-        }
-        // if (price)
-        //   price = price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
-        return (
-          <div className="spacing">
-            { price ? <span className="txt-price yellow-light">$ {price}</span> : <noscript /> }
-            <span className="txt-gray-sm">{desc}</span>
-          </div>
-        )
-      }
     }
+    // }, {
+    //   id: 'price',
+    //   headerLabel: 'Price',
+    //   sortable: false,
+    //   classes: 'item-price width7',
+    //   renderText: item => {
+    //     let desc = ''
+    //     let price = null
+    //     switch (item.status) {
+    //     case 'active':
+    //       desc = 'Pending'
+    //       break
+    //     case 'in_review':
+    //       price = item.estimatedPrice || null
+    //       desc = 'Estimated'
+    //       break
+    //     case 'reviewed':
+    //       price = item.estimatedPrice || null
+    //       desc = 'Quoted'
+    //       break
+    //     case 'completed':
+    //       desc = 'Paid'
+    //       price = item.actualPrice || null
+    //       break
+    //     }
+    //     // if (price)
+    //     //   price = price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+    //     return (
+    //       <div className="spacing">
+    //         { price ? <span className="txt-price yellow-light">$ {price}</span> : <noscript /> }
+    //         <span className="txt-gray-sm">{desc}</span>
+    //       </div>
+    //     )
+    //   }
+    // }
   ]
 
   // annotate projects with member data
