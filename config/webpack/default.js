@@ -108,7 +108,7 @@ module.exports = {
       logo: './src/favicon.png',
       // disable cache, otherwise when there is a dist folder with icons
       // icons don't wanna be generated in memory using webpack-dev-server
-      persistentCache: false,
+      persistentCache: false
     }),
     new HtmlWebpackPlugin({
       template: path.join(dirname, '/src/index.html'),

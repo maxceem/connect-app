@@ -6,7 +6,7 @@ import { Provider }   from 'react-redux'
 import _ from 'lodash'
 import store  from './config/store'
 import { SEGMENT_KEY } from './config/constants'
-import App from './App';
+import App from './App'
 
 const mountNode = document.getElementById('root')
 

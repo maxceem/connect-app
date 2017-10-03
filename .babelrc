@@ -1,1 +1,5 @@
-// babel config is placed inside webpack config
+// this babel config is for tests only
+// babel config for client side is places inside webpack config
+{
+  "presets": ["env", "react", "stage-2"]
+}
