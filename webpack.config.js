@@ -8,7 +8,6 @@
 
 module.exports = function buildConfig(env) {
   const webpackConfig = require(`./config/webpack/${env}.js`)
-  console.log('webpackConfig', JSON.stringify(webpackConfig, null, 4))
   return webpackConfig
 }
 
