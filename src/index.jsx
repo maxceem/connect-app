@@ -6,6 +6,7 @@ import { Provider }   from 'react-redux'
 import _ from 'lodash'
 import store  from './config/store'
 import { SEGMENT_KEY } from './config/constants'
+import App from './App';
 
 const mountNode = document.getElementById('root')
 
@@ -18,17 +19,15 @@ if (!_.isEmpty(SEGMENT_KEY)) {
 
 /* eslint-enable */
 
-const renderApp = () => {
-  const App = require('./App').default
-
+const renderApp = (AppComponent) => {
   render((
     <Provider store={store}>
-      <App />
+      <AppComponent />
     </Provider>
   ), mountNode)
 }
 
-renderApp()
+renderApp(App)
 
 /**
  * Warning from React Router, caused by react-hot-loader.
@@ -48,5 +47,9 @@ if (module.hot) {
     }
   }
 
-  module.hot.accept('./App', renderApp)
+  module.hot.accept('./App', () => {
+    const AppComponent = require('./App').default
+
+    renderApp(AppComponent)
+  })
 }
