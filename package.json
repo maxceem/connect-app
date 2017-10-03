@@ -4,11 +4,10 @@
   "description": "Customer pages in React and Redux",
   "scripts": {
     "start": "webpack-dev-server --history-api-fallback --env=dev --hot --inline --progress --port 3000 --host 0.0.0.0",
-    "build": "npm rebuild node-sass; webpack --bail --progress --build --tc",
+    "build": "npm rebuild node-sass; webpack --bail --progress --env=build",
     "lint": "eslint --fix --format table --ext .js,.jsx .",
     "test": "cross-env NODE_ENV=test mocha  --colors --reporter nyan --compilers js:babel-core/register --require ignore-styles --recursive \"./src/**/*.spec.js\"",
-    "test:watch": "watch-run -i -p 'src/**/*' npm run test",
-    "b": "webpack --bail --progress --display-error-details --env=build --env.tc"
+    "test:watch": "watch-run -i -p 'src/**/*' npm run test"
   },
   "optional": {
     "fsevents": "*"

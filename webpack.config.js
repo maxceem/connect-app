@@ -15,7 +15,7 @@ module.exports = function(env) {
   const config = require('./config/webpack/webpack.config.js')(env, {
     dirname: __dirname,
     entry: {
-      app: ['./src/styles/main.scss', './src/index', 'react-hot-loader/patch'],
+      app: ['./src/styles/main.scss', './src/index', 'react-hot-loader/patch']
     },
     template: './src/index.html'
   })
@@ -51,7 +51,7 @@ module.exports = function(env) {
 
   config.plugins.push(new FaviconsWebpackPlugin('./src/favicon.png'))
 
-  console.log("config", JSON.stringify(config, null, 2));
+  console.log('config', JSON.stringify(config, null, 2))
 
-  return config;
+  return config
 }

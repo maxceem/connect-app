@@ -1,5 +1,5 @@
 const configEnvConstants = function(ENV) {
-  const constants = {};
+  const constants = {}
 
   if (ENV === 'DEV') {
     Object.assign(constants, {
@@ -44,7 +44,7 @@ const configEnvConstants = function(ENV) {
       PREDIX_PROGRAM_ID         : 3448,
       IBM_COGNITIVE_PROGRAM_ID  : 3449,
       HEAP_ANALYTICS_APP_ID     : '4153837120'
-    });
+    })
   }
 
   if (ENV === 'QA') {
@@ -89,7 +89,7 @@ const configEnvConstants = function(ENV) {
       PREDIX_PROGRAM_ID         : 3448,
       IBM_COGNITIVE_PROGRAM_ID  : 3449,
       HEAP_ANALYTICS_APP_ID     : '4153837120'
-    });
+    })
   }
 
   if (ENV === 'PROD') {
@@ -135,10 +135,10 @@ const configEnvConstants = function(ENV) {
       PREDIX_PROGRAM_ID         : 3448,
       IBM_COGNITIVE_PROGRAM_ID  : 3449,
       HEAP_ANALYTICS_APP_ID     : '638908330'
-    });
+    })
   }
 
-  return constants;
-};
+  return constants
+}
 
-module.exports = configEnvConstants;
+module.exports = configEnvConstants

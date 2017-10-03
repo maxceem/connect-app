@@ -1,39 +1,39 @@
-'use strict';
+'use strict'
 
-const _ = require('lodash');
-const autoprefixer = require('autoprefixer');
+const _ = require('lodash')
+const autoprefixer = require('autoprefixer')
 
 module.exports = function(env, options) {
-  const path              = require('path');
-  const webpack           = require('webpack');
-  const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-  const HtmlWebpackPlugin = require('html-webpack-plugin');
-  const CompressionPlugin = require('compression-webpack-plugin');
-  const constants         = require('./constants.js');
+  const path              = require('path')
+  const webpack           = require('webpack')
+  const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
+  const HtmlWebpackPlugin = require('html-webpack-plugin')
+  const CompressionPlugin = require('compression-webpack-plugin')
+  const constants         = require('./constants.js')
 
-  let dirname = options.dirname;
-  let entry = options.entry;
-  let template = options.template;
+  let dirname = options.dirname
+  let entry = options.entry
+  let template = options.template
 
-  console.log("dirname, entry, template", dirname, entry, template);
+  console.log('dirname, entry, template', dirname, entry, template)
 
-  dirname = dirname || __dirname;
+  dirname = dirname || __dirname
 
-  let TEST   = false;
-  let BUILD  = env === 'build';
-  let MOCK   = false;
-  let ENV    = process.env.ENV || env === 'dev' && 'DEV' || 'DEV';
+  let TEST   = false
+  let BUILD  = env === 'build'
+  let MOCK   = false
+  let ENV    = process.env.ENV || env === 'dev' && 'DEV' || 'DEV'
 
   process.argv.forEach(function(arg) {
-    if (arg === '--test') { TEST   = true; }
+    if (arg === '--test') { TEST   = true }
 
-    if (arg === '--dev') { ENV = 'DEV'; }
-    if (arg === '--qa') { ENV = 'QA'; }
-    if (arg === '--prod') { ENV = 'PROD'; }
-    if (arg === '--mock') { return MOCK = true; }
-  });
+    if (arg === '--dev') { ENV = 'DEV' }
+    if (arg === '--qa') { ENV = 'QA' }
+    if (arg === '--prod') { ENV = 'PROD' }
+    if (arg === '--mock') { return MOCK = true }
+  })
 
-  const envConstants = constants(ENV);
+  const envConstants = constants(ENV)
   // console.log("envConstants", envConstants);
 
   // Object.assign(process.env, envConstants);
@@ -41,94 +41,94 @@ module.exports = function(env, options) {
   // console.log("process.env", process.env);
 
   // Reference: http://webpack.github.io/docs/configuration.html
-  const config         = {};
-  config.context = dirname;
+  const config         = {}
+  config.context = dirname
 
   // Reference: http://webpack.github.io/docs/configuration.html#entry
   if (TEST && !entry) {
-    config.entry = {};
+    config.entry = {}
   } else if (entry) {
-    config.entry = entry;
+    config.entry = entry
   } else {
-    config.entry = path.join(dirname, '/example/example.coffee');
+    config.entry = path.join(dirname, '/example/example.coffee')
   }
 
   // Reference: http://webpack.github.io/docs/configuration.html#output
   if (TEST) {
-    config.output = {};
+    config.output = {}
   } else {
     config.output = {
       path          : path.join(dirname, '/dist'),
       filename      : '[name].[hash].js',
       chunkFilename : '[name].[hash].js'
-    };
+    }
   }
 
   // Reference: http://webpack.github.io/docs/configuration.html#devtool
   if (TEST) {
-    config.devtool = 'inline-source-map';
+    config.devtool = 'inline-source-map'
   } else if (BUILD) {
-    config.devtool = 'source-map';
+    config.devtool = 'source-map'
   } else {
-    config.devtool = 'eval';
+    config.devtool = 'eval'
   }
 
   const scssLoaderBase = [{
-          loader: 'css-loader',
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            plugins: [
-              autoprefixer,
-            ],
-          },
-        },
+    loader: 'css-loader'
+  }, {
+    loader: 'postcss-loader',
+    options: {
+      plugins: [
+        autoprefixer
+      ]
+    }
+  },
         'resolve-url-loader',
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        }];
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: true
+      }
+    }]
   const scssLoader = BUILD ?
       ExtractCssChunks.extract({
         fallback: 'style-loader',
         use: [{
-          loader: 'css-loader',
+          loader: 'css-loader'
         }, {
           loader: 'postcss-loader',
           options: {
             plugins: [
-              autoprefixer,
-            ],
-          },
+              autoprefixer
+            ]
+          }
         },
         'resolve-url-loader',
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        }],
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }]
       })
     :
       [{
-          loader: 'css-loader',
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            plugins: [
-              autoprefixer,
-            ],
-          },
-        },
+        loader: 'css-loader'
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          plugins: [
+            autoprefixer
+          ]
+        }
+      },
         'resolve-url-loader',
         {
           loader: 'sass-loader',
           options: {
-            sourceMap: true,
-          },
-        }];
+            sourceMap: true
+          }
+        }]
 
   // Reference: http://webpack.github.io/docs/configuration.html#module-loaders
   // List: http://webpack.github.io/docs/list-of-loaders.html
@@ -142,7 +142,7 @@ module.exports = function(env, options) {
         presets: [ 'env', 'react', 'stage-2' ],
         plugins: [
           'lodash',
-          'react-hot-loader/babel',
+          'react-hot-loader/babel'
         ]
       }
     }, {
@@ -163,7 +163,7 @@ module.exports = function(env, options) {
             presets: [ 'env', 'react', 'stage-2' ],
             plugins: [
               'lodash',
-              'react-hot-loader/babel',
+              'react-hot-loader/babel'
             ]
           }
         },
@@ -180,7 +180,7 @@ module.exports = function(env, options) {
         use: [{
           loader: 'css-loader',
           options: {
-            sourceMap: true,
+            sourceMap: true
           }
         }, {
           loader: 'postcss-loader',
@@ -188,8 +188,8 @@ module.exports = function(env, options) {
             sourceMap: true,
             plugins: [
               // autoprefixer,
-            ],
-          },
+            ]
+          }
         },
         'resolve-url-loader',
         {
@@ -199,10 +199,10 @@ module.exports = function(env, options) {
             includePaths: [
               path.join(dirname, '/node_modules/bourbon/app/assets/stylesheets'),
               path.join(dirname, '/node_modules/tc-ui/src/styles')
-            ],
-          },
-        }],
-      }),
+            ]
+          }
+        }]
+      })
     }, {
       /* We have to support css loading for third-party plugins,
        * we don't apply any transforms to the like autoprefixing
@@ -210,8 +210,8 @@ module.exports = function(env, options) {
       test: /\.css$/,
       use: ExtractCssChunks.extract({
         fallback: 'style-loader',
-        use: ['css-loader'],
-      }),
+        use: ['css-loader']
+      })
     }, {
       // ASSET LOADER
       // Reference: https:#github.com/webpack/file-loader
@@ -227,12 +227,12 @@ module.exports = function(env, options) {
     }, {
       test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'file-loader'
-    }],
+    }]
     /*postLoaders: [{
       test: /\.(js|coffee|cjsx|jsx)$/,
       loader: 'transform/cacheable?envify'
     }]*/
-  };
+  }
 
   /*config.resolveLoader =
     {root: path.join(dirname, '/node_modules/')};*/
@@ -252,25 +252,25 @@ module.exports = function(env, options) {
       '.jpg',
       '.cjsx'
     ]
-  };
+  }
 
   // Reference: http://webpack.github.io/docs/configuration.html#plugins
   // List: http://webpack.github.io/docs/list-of-plugins.html
-  config.plugins = [];
+  config.plugins = []
 
   config.plugins.push(
     new ExtractCssChunks({
       filename: '[name].css',
-      justExtract: true,
+      justExtract: true
     })
-  );
+  )
 
   config.plugins.push(new webpack.DefinePlugin({
     __MOCK__: JSON.stringify(JSON.parse(MOCK || 'false')),
-    'process.env': _.mapValues(envConstants, function (value) {
-        return JSON.stringify(value);
+    'process.env': _.mapValues(envConstants, function(value) {
+      return JSON.stringify(value)
     })
-  }));
+  }))
 
   if (!TEST) {
     config.plugins.push(new HtmlWebpackPlugin({
@@ -278,37 +278,37 @@ module.exports = function(env, options) {
       inject: 'body',
       // favicon: options.favicon,
       NEW_RELIC_APPLICATION_ID: envConstants.NEW_RELIC_APPLICATION_ID
-    }));
+    }))
   }
 
-  if (BUILD) {
     // Do not include any .mock.js files if this is a build
-    config.plugins.push(new webpack.IgnorePlugin(/\.mock\.js/));
+  config.plugins.push(new webpack.IgnorePlugin(/\.mock\.js/))
+  if (BUILD) {
 
     // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
     // Only emit files when there are no errors
-    config.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+    config.plugins.push(new webpack.NoEmitOnErrorsPlugin())
 
     // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
     // Dedupe modules in the output
     // config.plugins.push(new webpack.optimize.DedupePlugin());
 
-    const uglifyOptions = options.uglifyOptions || { mangle: true };
+    const uglifyOptions = options.uglifyOptions || { mangle: true }
 
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin(uglifyOptions));
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin(uglifyOptions))
 
     config.plugins.push(new CompressionPlugin({
-      asset: "{file}",
-      algorithm: "gzip",
+      asset: '{file}',
+      algorithm: 'gzip',
       regExp: /\.js$|\.css$/,
       threshold: 10240,
       minRatio: 0.8
-    }));
+    }))
   }
 
   config.plugins.push(new webpack.LoaderOptionsPlugin({
     debug: true
-  }));
+  }))
 
-  return config;
-};
+  return config
+}
